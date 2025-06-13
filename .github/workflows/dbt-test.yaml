@@ -1,0 +1,31 @@
+name: DBT Build Test
+
+on:
+  pull_request:
+    branches: [production]
+
+jobs:
+  build:
+    name: Run DBT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-redshift==1.4.0
+      - name: Run DBT
+        run: |
+          dbt deps
+          dbt parse
+        env:
+          DBT_PROFILES_DIR: profile_kubt/
+          DBT_REDSHIFT_HOST: ${{ secrets.DBT_REDSHIFT_HOST }}
+          DBT_REDSHIFT_USER: ${{ secrets.DBT_REDSHIFT_USER }}
+          DBT_REDSHIFT_PASSWORD: ${{ secrets.DBT_REDSHIFT_PASSWORD }}
+          DBT_REDSHIFT_SCHEMA: ${{ secrets.DBT_REDSHIFT_SCHEMA }}
+          DBT_REDSHIFT_DB: ${{ secrets.DBT_REDSHIFT_DB }}

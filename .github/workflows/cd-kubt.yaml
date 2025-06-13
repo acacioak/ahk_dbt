@@ -1,0 +1,67 @@
+name: GitHub Actions KuBT - Pipe CD
+on:
+  push:
+    branches: [production]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Build-Docker-Image-ECR-SparkJob:
+    name: Build Docker Image ECR - Spark Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+
+      - name: Configuring AWS credentials for ECR (Spark)
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCOUNT_DATA_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCOUNT_DATA_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR (Spark)
+        id: login-ecr-spark
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to repository (ECR) - Spark Job
+        env:
+          VERSION: latest
+          ECR_REGISTRY: 471112908196.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: spark-job-clicksing
+          IMAGE_TAG: latest
+        run: |
+          echo "Image Version = $VERSION"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f airflow/dags/spark/Dockerfile .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  Build-Docker-Image-ECR-KuBT:
+    name: Build Docker Image ECR - KuBT
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+
+      - name: Configuring AWS credentials for ECR (Account Dados)
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCOUNT_DATA_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCOUNT_DATA_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR (Account Dados)
+        id: login-ecr-account-dados
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to repository (ECR) - Account Dados
+        env:
+          VERSION: latest
+          ECR_REGISTRY: 471112908196.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: dbt-clicksing
+          IMAGE_TAG: latest
+        run: |
+          echo "Image Version = $VERSION"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
