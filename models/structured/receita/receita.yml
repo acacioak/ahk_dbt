@@ -1,0 +1,28 @@
+
+version: 2
+
+models:
+  - name: receita
+    description: "tabela que contém as receitas."
+    columns:
+      - name: pagamento_id
+        data_type: character varying
+        description: "identificador do pagamento."
+
+      - name: pedido_id
+        data_type: character varying
+        description: "identificador do pedido."
+
+      - name: amount
+        data_type: double precision
+        description: "valor pago do pedido."
+
+      - name: metodo_pagamento
+        data_type: character varying
+        description: "qual foi o tipo de pagamento."
+
+      - name: data_pagamento
+        data_type: date
+        description: "data do pagamento."
+
+
