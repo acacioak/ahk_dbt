@@ -15,4 +15,4 @@ select
     data_pagamento
 
 
-from {{ source('raw_data', 'pagamentos') }}
+from {{ source('raw_data', 'pagamentos') }} 

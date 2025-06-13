@@ -1,0 +1,35 @@
+name: Validate DBT Files
+
+#on:
+#  workflow_dispatch:
+#    inputs:
+#      logLevel:
+#        description: 'Log level'
+#        required: true
+#        default: 'warning'
+#      environment:
+#        description: 'Environment to deploy to'
+#        required: false
+
+on:
+  pull_request:
+    branches: [production]
+
+jobs:
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install pyyaml pandas
+    - name: Validate DBT YAML files
+      run: python dbt-valid-yml.py
+    - name: Validate DBT Ref files
+      run: python dbt-valid-ref.py
