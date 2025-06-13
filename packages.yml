@@ -1,0 +1,5 @@
+packages:
+  - package: dbt-labs/codegen # Note: o nome do pacote é 'codegen', não 'dbt_codegen' no final
+    version: 0.11.0
+  - package: dbt-labs/dbt_utils
+    version: 1.3.0
