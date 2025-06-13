@@ -16,12 +16,6 @@
 - [ ] Padronizei branch, commits e título da PR
 
 
-### Regras de padronização:
-
-- Branchs devem conter o card do Jira: [DATA-214]
-- Commits devem conter a ação do commit, como fix, new feature, tests
-- O título da PR também deve conter o card: [DATA-214] Ajuste em lógica de churn
-
 
 ### Roteiro do revisor
 
