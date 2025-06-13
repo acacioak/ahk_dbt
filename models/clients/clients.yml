@@ -1,0 +1,26 @@
+
+version: 2
+
+models:
+  - name: clients
+    description: "informação dos clientes"
+    columns:
+      - name: client_id
+        description: "identificador do cliente."
+        tests:
+          - unique
+          - not_null
+      - name: subscription_id
+        description: "identificador da assinatura do cliente."
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: "status da subscrição do cliente."
+      - name: data_assinatura
+        description: "data do inicio do plano."
+      - name: data_cancelamento
+        description: "data do cancelamento do plano."
+
+
+
