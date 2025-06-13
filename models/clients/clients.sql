@@ -8,7 +8,7 @@
     tags = ["refined", "clients", "clients"]) }}
 
 select
-    cliente_id,
+    client_id,
     subscription_id,
     "status",
     data_assinatura,
