@@ -1,0 +1,16 @@
+# C:\Users\Administrador\.dbt\profiles.yml
+
+ahk_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: 127.0.0.1
+      port: 5432
+      user: postgres
+      password: Pote8819@
+      dbname: postgres
+      schema: acacio_ahk
+      threads: 1
+      client_encoding: utf8
+      search_path: public
