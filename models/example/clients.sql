@@ -11,10 +11,10 @@ select
     client_id,
     subscription_id,
     "status",
-    data_assinatura,
-    data_cancelamento
+    data_assinatura as start_at,
+    data_cancelamento as cancel_at
 
-from {{ source('raw_data', 'clientes') }} 
+from {{ ref('clientes') }} 
 
 
 
