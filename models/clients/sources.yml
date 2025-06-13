@@ -7,4 +7,8 @@ sources:
     database: postgres # Opcional se já estiver no profiles.yml, mas boa prática
     schema: raw_data # <<<<<<< ESTE É O PONTO CRÍTICO: onde a tabela 'clientes' realmente está
     tables:
-      - name: clientes # Este nome deve corresponder ao segundo argumento em {{ source() }}
+      - name: clientes 
+      - name: enderecos
+      - name: produtos
+      - name: pedidos
+      - name: pagamentos
