@@ -14,7 +14,7 @@ select
     data_assinatura as start_at,
     data_cancelamento as cancel_at
 
-from {{ ref('clientes') }} 
+from {{ ref('raw_data', 'clientes') }} 
 
 
 
