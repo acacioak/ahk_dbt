@@ -8,15 +8,11 @@
     tags = ["refined", "clients", "clients"]) }}
 
 select
-    client_id,
+    cliente_id,
     subscription_id,
     "status",
-    data_assinatura as start_at,
-    data_cancelamento as cancel_at
-
-from {{ ref('raw_data', 'clientes') }} 
+    data_assinatura,
+    data_cancelamento
 
 
-
-
-
+from {{ source('raw_data', 'clientes') }}
